@@ -20,48 +20,50 @@ class FakeModel(models.Model):
 
     @classmethod
     def create_table(cls):
-        """
-        create_table
-
-        Manually create a temporary table for model in test data base.
-        :return:
-        """
-        schema_editor = getattr(connection, 'schema_editor', None)
-        if schema_editor:
-            with schema_editor() as schema_editor:
-                schema_editor.create_model(cls)
-        else:
-            raw_sql, _ = connection.creation.sql_create_model(
-                cls,
-                no_style(),
-                [])
-            cls.delete_table()
-            cursor = connection.cursor()
-            try:
-                cursor.execute(*raw_sql)
-            finally:
-                cursor.close()
+        None
+#        """
+#        create_table
+#
+#        Manually create a temporary table for model in test data base.
+#        :return:
+#        """
+#        schema_editor = getattr(connection, 'schema_editor', None)
+#        if schema_editor:
+#            with schema_editor() as schema_editor:
+#                schema_editor.create_model(cls)
+#        else:
+#            raw_sql, _ = connection.creation.sql_create_model(
+#                cls,
+#                no_style(),
+#                [])
+#            cls.delete_table()
+#            cursor = connection.cursor()
+#            try:
+#                cursor.execute(*raw_sql)
+#            finally:
+#                cursor.close()
 
     @classmethod
     def delete_table(cls):
-        """
-        delete_table
-
-        Manually delete a temporary table for model in test data base.
-        :return:
-        """
-        schema_editor = getattr(connection, 'schema_editor', None)
-        if schema_editor:
-            with connection.schema_editor() as schema_editor:
-                schema_editor.delete_model(cls)
-        else:
-            cursor = connection.cursor()
-            try:
-                with warnings.catch_warnings():
-                    warnings.filterwarnings('ignore', 'unknown table')
-                    cursor.execute('DROP TABLE IF EXISTS {0}'.format(cls._meta.db_table))
-            finally:
-                cursor.close()
+        None
+#        """
+#        delete_table
+#
+#        Manually delete a temporary table for model in test data base.
+#        :return:
+#        """
+#        schema_editor = getattr(connection, 'schema_editor', None)
+#        if schema_editor:
+#            with connection.schema_editor() as schema_editor:
+#                schema_editor.delete_model(cls)
+#        else:
+#            cursor = connection.cursor()
+#            try:
+#                with warnings.catch_warnings():
+#                    warnings.filterwarnings('ignore', 'unknown table')
+#                    cursor.execute('DROP TABLE IF EXISTS {0}'.format(cls._meta.db_table))
+#            finally:
+#                cursor.close()
 
     @classmethod
     def fake_me(cls, source):
